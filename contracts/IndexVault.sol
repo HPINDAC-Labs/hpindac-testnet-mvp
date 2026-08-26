@@ -26,6 +26,14 @@ contract IndexVault {
 
     uint16 public constant REDEMPTION_FEE_BPS = 1200; // 12.00% immutable, in basis points (10000 = 100%)
 
+    // --- Minting fee: protocol-wide safe bounds are hard-coded and can never be exceeded.
+    // Each vault chooses its own rate within these bounds, once, at deployment — immutable
+    // thereafter for that specific vault. This mirrors the same "bounded flexibility"
+    // philosophy already used for the oracle pointer (Section 4.1 of the Blueprint).
+    uint16 public constant MIN_MINT_FEE_BPS = 20;   // 0.20% floor, protocol-wide, hard-coded
+    uint16 public constant MAX_MINT_FEE_BPS = 200;  // 2.00% ceiling, protocol-wide, hard-coded
+    uint16 public immutable mintFeeBps;              // this vault's chosen rate, fixed forever once set
+
     address public immutable founderWallet;
     address public immutable developerWallet;
     address public immutable reserveWallet;
@@ -96,6 +104,7 @@ contract IndexVault {
         uint16 founderShareBps;
         uint16 developerShareBps;
         uint16 reserveShareBps;
+        uint16 mintFeeBps;       // this vault's chosen minting fee, must fall within the hard-coded protocol bounds
         address[] signers;      // multisig signer set for this vault's admin (Section 4.3)
         uint256 threshold;      // approvals required for sensitive actions (e.g., 2-of-3)
         string tokenName;
@@ -107,6 +116,12 @@ contract IndexVault {
             uint256(cfg.founderShareBps) + cfg.developerShareBps + cfg.reserveShareBps == 10000,
             "Vault: fee shares must sum to 100%"
         );
+        require(
+            cfg.mintFeeBps >= MIN_MINT_FEE_BPS && cfg.mintFeeBps <= MAX_MINT_FEE_BPS,
+            "Vault: mint fee outside protocol-allowed range"
+        );
+
+        mintFeeBps = cfg.mintFeeBps;
 
         factory = cfg.factory;
         stablecoin = cfg.stablecoin;
@@ -171,8 +186,12 @@ contract IndexVault {
         );
         require(pullResult == HederaResponseCodes.SUCCESS, "Vault: stablecoin transfer failed");
 
-        // mintAmount = depositAmount * PRICE_PRECISION / navPrice
-        uint256 mintAmount = (uint256(stablecoinAmount) * PRICE_PRECISION) / navPrice;
+        // Minting fee applied on entry, before conversion to index tokens.
+        uint256 mintFee = (uint256(stablecoinAmount) * mintFeeBps) / 10000;
+        uint256 netDepositValue = uint256(stablecoinAmount) - mintFee;
+
+        // mintAmount = netDepositValue * PRICE_PRECISION / navPrice
+        uint256 mintAmount = (netDepositValue * PRICE_PRECISION) / navPrice;
         require(mintAmount > 0 && mintAmount <= uint256(uint64(type(int64).max)), "Vault: invalid mint amount");
 
         bytes[] memory emptyMetadata = new bytes[](0);
@@ -185,6 +204,10 @@ contract IndexVault {
             indexToken, address(this), msg.sender, int64(uint64(mintAmount))
         );
         require(sendResult == HederaResponseCodes.SUCCESS, "Vault: index token transfer failed");
+
+        if (mintFee > 0) {
+            _distributeFee(mintFee);
+        }
 
         emit Deposited(msg.sender, stablecoinAmount, uint64(mintAmount), navPrice);
     }
