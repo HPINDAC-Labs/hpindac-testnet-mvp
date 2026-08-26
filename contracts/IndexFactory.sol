@@ -51,6 +51,7 @@ contract IndexFactory {
         uint16 founderShareBps;
         uint16 developerShareBps;
         uint16 reserveShareBps;
+        uint16 mintFeeBps;       // must fall within IndexVault's hard-coded 0.20%-2.00% bounds
         address[] multisigSigners;
         uint256 multisigThreshold;
         string tokenName;
@@ -68,6 +69,7 @@ contract IndexFactory {
             founderShareBps: p.founderShareBps,
             developerShareBps: p.developerShareBps,
             reserveShareBps: p.reserveShareBps,
+            mintFeeBps: p.mintFeeBps,
             signers: p.multisigSigners,
             threshold: p.multisigThreshold,
             tokenName: p.tokenName,
