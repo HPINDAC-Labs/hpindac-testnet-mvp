@@ -13,7 +13,7 @@ Status: Early-Stage, Testnet, Pre-Audit
 ⬜ Full vault deposit/mint/redeem flow tested end-to-end — not yet done
 ⬜ Mainnet deployment — not planned until the above are complete
 This is honest by design. Nothing here is production-ready, and no claim in this repo should be read otherwise.
-Why Hedera, and Why This Architecture
+Why Hedera, and Why This Architecture.
 Most infrastructure of our competitors are built for EVM chains and depends on cross-chain bridges — historically the largest single source of DeFi exploits. HPINDAC is built entirely on Hedera's native token service (HTS precompile, address 0x167), with no bridges at all.
 A second, equally important difference: immutability. HPINDAC's core financial logic — deposit, redemption, fee split, and custody rules — is designed to be immutable once deployed: it cannot be changed afterward, by anyone, including the founders. The only mutable component is the oracle price-feed pointer, and even that requires multisig approval plus a mandatory 24-hour timelock, never a single key.
 This is a real tradeoff, not a free upgrade: immutable code can't be patched if a flaw is discovered post-launch, which is exactly why an independent security audit before any mainnet deployment is treated as non-negotiable in this project, not optional.
