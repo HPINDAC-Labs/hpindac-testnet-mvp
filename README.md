@@ -2,7 +2,7 @@ HPINDAC
 
 Hedera-native infrastructure for launching index vaults.
 
-https://hashscan.io/testnet/contract/0.0.10120855
+https://hashscan.io/testnet/contract/0.0.10297438
 
 HPINDAC is a factory contract that lets a fund manager, DAO, or institution deploy their own isolated, secure index vault on Hedera — without building custody, minting, and security logic from scratch. Users deposit a stablecoin, receive a token representing their share of a defined basket, and redeem it later for the underlying value minus a fee.
 Status: Early-Stage, Testnet, Pre-Audit
