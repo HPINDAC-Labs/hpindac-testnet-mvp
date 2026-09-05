@@ -1,0 +1,38 @@
+HPINDAC Contracts — Changelog
+All notable changes are documented here. This project is pre-audit, testnet-only —
+versions represent deliberate, reviewed iteration, not instability.
+v3 — Internal Critical Review
+Fixed: a real logic bug in NAV staleness handling — the vault's paused flag was
+being set immediately before a revert(), which silently erased that state change.
+The vault correctly blocked individual transactions during staleness, but never
+actually persisted as paused for external monitoring. Fixed by separating the revert
+path from a new pauseIfStale() function that properly persists the pause.
+Fixed: FounderSplit.sol's balance check was a placeholder returning zero. Now
+queries the real HTS token balance via its native ERC-20 interface.
+Added: zero-address validation on all critical constructor parameters (stablecoin,
+oracle, founder/developer/reserve wallets) — previously a mistyped address would fail
+silently rather than reverting clearly at deployment.
+Improved: solvencyCheck() now queries real on-chain balances directly instead of
+trusting caller-supplied numbers.
+Changed: IndexFactory vault deployment is now gated by its own multisig (reusing
+the existing, already-proven MultiSigTimelock contract), replacing the single-owner
+pattern from v1/v2. Note: this adds a mandatory 24-hour timelock to every future vault
+deployment — a deliberate trade-off, appropriate once real funds are involved.
+v2 — Minting Fee
+Added a minting fee (0.20%–2.00%, protocol-wide hard-coded bounds), chosen per-vault
+at deployment, immutable thereafter for that vault.
+v1 — Initial MVP
+IndexFactory and IndexVault deployed and Sourcify-verified on Hedera testnet.
+Core deposit/mint/redeem/fee-split flow, oracle deviation limits, circuit breakers,
+per-vault multisig + timelock.
+v4 — Merged With Co-Founder's Independent Improvements
+Adopted: unified bootstrap mode built directly into MultiSigTimelock — every vault's
+own admin actions (not just factory deployment) now start fast and can be permanently
+locked to the secure 24-hour path via a one-way exitBootstrapMode().
+Adopted: real HTS supply-key configuration on the index token (explicit supply key,
+no admin/freeze/wipe keys) — closes a real gap neither v1-v3 had resolved.
+Adopted: addSigner/removeSigner/updateThreshold — the multisig can now evolve
+its own signer set without a redeploy.
+Retained from v3: the NAV staleness bug fix, zero-address validation, real
+solvencyCheck(), and FounderSplit's real balance query.
+Verified: compiles cleanly, zero errors, before being adopted as the working version.
