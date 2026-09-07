@@ -7,7 +7,8 @@ https://hashscan.io/testnet/contract/0.0.10398720
 HPINDAC is a factory contract that lets a fund manager, DAO, or institution deploy their own isolated, secure index vault on Hedera — without building custody, minting, and security logic from scratch. Users deposit a stablecoin, receive a token representing their share of a defined basket, and redeem it later for the underlying value minus a fee.
 Status: Early-Stage, Testnet, Pre-Audit
 ✅ Core contracts written and compiled with zero errors/warnings
-✅ IndexFactory (v1) deployed and Sourcify-verified on Hedera testnet: 0x76c8c86b0e885F4751Efa1d2eC90B53202f3008a
+✅ IndexFactory (v1) deployed and Sourcify-verified on Hedera testnet: 
+0xa08b51e7ef4db74e9a59da33ddaa8f3b37d092a8
 ✅ v2 update: added a minting fee (0.20%–2.00%, hard-coded protocol-wide bounds), chosen per-vault at deployment, immutable thereafter for that vault — same "bounded flexibility" design already used for the oracle pointer. v2 is a fresh deployment (new contract addresses), not an upgrade to v1, since core logic is immutable by design — v1 remains live and unaffected.
 ⬜ Independent security audit — not yet done
 ⬜ Full vault deposit/mint/redeem flow tested end-to-end — not yet done
