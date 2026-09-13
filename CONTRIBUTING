@@ -1,0 +1,44 @@
+# Contributing to HPINDAC Protocol
+
+HPINDAC is an HTS-native elastic index vault factory engineered directly around Hedera precompile `0x167`. Because this codebase operates at the boundary of native token operations and EVM state isolation, we prioritize high-signal architectural refinement over cosmetic contributions.
+
+---
+
+## 🎯 Open Architectural Frontiers
+
+If you are cloning this repository locally to build or integrate, we invite you to review and contribute to four active design frontiers:
+
+### 1. Precompile `0x167` Gas Optimization & State Isolation
+* **Challenge:** Optimizing multi-asset native mint/burn loops within single-transaction EVM call stacks without exceeding Hedera precompile gas limits.
+* **Target:** Benchmark gas consumption across 3-asset vs. 10-asset vault allocations.
+
+### 2. Cross-DEX Oracle Aggregation & HCS Feed Integration
+* **Challenge:** Designing fallback price feed logic (Chainlink / Pyth / HCS consensus streams) for the 5% NAV circuit breaker.
+* **Target:** Abstracting `IPriceOracle.sol` to handle cross-DEX liquidity depth and flash-crash protection.
+
+### 3. Fixed-Point Math Edge-Case Verification
+* **Challenge:** Stress-testing 18-decimal fixed-point precision during extreme rebalancing events and low-liquidity mint cycles.
+* **Target:** Verifying zero rounding loss during automated mint/burn fee deductions.
+
+### 4. Emergency State & Multi-Sig Circuit Breakers
+* **Challenge:** Architecting keyless immutability on underlying tokens while leaving administrative pause controls on the vault factory.
+* **Target:** Validating pause-state security under heavy contract contention.
+
+---
+
+## 💰 Grant Milestone Alignment
+
+HPINDAC does not operate on informal or uncompensated contributions. Architectural RFCs (Requests for Comment) and verified code merged into production branches are eligible for **ecosystem grant milestone allocations** backed by ecosystem foundation grants.
+
+### Contribution Process
+1. Do not submit unannounced PRs for major structural changes.
+2. Open an **Architectural RFC** in [GitHub Discussions](../../discussions) detailing your proposed approach or edge-case finding.
+3. Once reviewed and scoped by the maintainers, a formal grant milestone payout is assigned to the deliverable upon successful merge and test validation.
+
+---
+
+## 📬 Direct Engineering Sync
+
+Building a custom index or integrating HPINDAC into your protocol?
+* Open a discussion in the **Architecture & Integration** channel.
+* For private security findings or strategic partnerships: `licensing@hpindac.com`.
