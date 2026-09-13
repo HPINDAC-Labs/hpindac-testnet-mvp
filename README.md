@@ -36,3 +36,4 @@ This project is looking for a Hedera/Solidity developer to review, harden, and h
 
 > **Licensing Notice:** Apache 2.0 
 
+HPINDAC is experimental software provided 'as is' for educational and research purposes under the Apache 2.0 license. The authors make no warranties regarding non-infringement or suitability for production use."
