@@ -34,5 +34,5 @@ Code
 Contributing / Getting Involved
 This project is looking for a Hedera/Solidity developer to review, harden, and help take the codebase further. If the architecture or the security problem interests you, open an issue or reach out — see contact details in the repo profile.
 
-> **Licensing Notice:** HPINDAC source code is available under **Business Source License (BSL) 1.1**. Developers are fully permitted to clone, test, and evaluate the protocol locally. Commercial deployment or managed production integration requires prior authorization or a grant partnership (licensing@hpindac.com). This license automatically transitions to Apache 2.0 on September 13, 2030.
+> **Licensing Notice:** Apache 2.0 
 
