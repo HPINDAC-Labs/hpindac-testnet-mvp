@@ -1,5 +1,5 @@
 
-HPINDAC
+HPINDAC Protocol project
 
 Hedera-native infrastructure for launching index vaults.
 
