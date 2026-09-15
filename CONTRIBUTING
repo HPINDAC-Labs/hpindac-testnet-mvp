@@ -1,1 +1,29 @@
-
+Contributing to HPINDAC
+Thanks for taking a look. Here's the honest, direct version of how to get involved.
+Where things actually stand
+This is a pre-audit, testnet-only project, built by two non-technical founders, now looking for real developer collaboration to take it further. Nothing here
+is production-ready — see CHANGELOG.md and the known limitations listed in each issue
+for exactly what that means in practice.
+The fastest way in: pick an issue
+Check the Issues tab — each one is scoped, specific, and tagged help wanted.
+They range from small (a good first look at the codebase) to substantial (real architectural
+judgment calls). Pick whichever matches your interest and comment on it before starting, so
+we're not duplicating effort.
+If you want to do a deeper review instead
+Open a new issue, or just comment directly on any existing one — we're genuinely glad to
+hear "this part is wrong" as much as "here's a fix." Both are valuable.
+What working with us looks like right now
+No cash upfront. We're pre-funding, two founders, fully transparent about it. Real
+contributions are discussed on a milestone — happy to talk specifics
+directly.
+You get to evaluate the project and us before anything's locked in, and vice versa.
+Security-first, always. If a proposed change touches deposit, redemption, fee, or
+custody logic, hope real honesty, verify and valuable contributions.
+How to reach us
+Open an issue, comment on an existing one, or reach out directly — contact details are in
+the repo profile.
+Why this might be worth your time
+Hedera doesn't yet have a native version of the "vault factory" infrastructure model that
+Reserve Protocol has proven at scale elsewhere. If bridge-free architecture, immutable core
+logic, or oracle security design interests you, this is a genuinely early, real opportunity
+to shape something from close to the ground up — not just implement a finished spec.
